@@ -43,6 +43,7 @@ struct ResItemData {
     over_18: bool,
     locked: bool,
     num_comments: i32,
+    subreddit: String,
 }
 
 #[derive(Deserialize)]
@@ -94,6 +95,7 @@ struct Post {
     locked: bool,
     comments: i32,
     created_at: f32,
+    subreddit: String,
 }
 
 #[derive(Serialize)]
@@ -149,6 +151,7 @@ pub async fn home() -> Result<Data, AppError> {
                 locked: child.data.locked,
                 comments: child.data.num_comments,
                 created_at: child.data.created_utc,
+                subreddit: child.data.subreddit.clone(),
             })
             .collect(),
     })

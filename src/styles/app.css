@@ -7,7 +7,30 @@
   --bg: 0, 0, 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   color: rgb(var(--fg));
   background: rgb(var(--bg));
+  overflow-y: scroll;
+  overflow-x: clip;
+  word-break: break-all;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  scrollbar-width: normal;
+}
+
+*:focus {
+  outline: none;
 }
