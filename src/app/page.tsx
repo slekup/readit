@@ -9,7 +9,6 @@ interface Media {
     provider_name: string;
     provider_url: string;
     title: string;
-    embed_type: string;
     height: number;
     width: number;
     author_name: string;
@@ -46,7 +45,7 @@ export default function Home() {
   const [error, setError] = useState<string | undefined>();
 
   useEffect(() => {
-    invoke<Data>("home")
+    invoke<Data>("home", { limit: 100 })
       .then((result) => setData(result))
       .catch((err) => {
         console.error(err);

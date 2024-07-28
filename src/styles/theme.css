@@ -1,0 +1,33 @@
+:root {
+  --primary: 255, 69, 0;
+  --primary-hover: 255, 69, 0;
+  --primary-active: 255, 69, 0;
+  --primary-text: 255, 255, 255;
+  --secondary: 231, 233, 235;
+  --secondary-hover: 231, 233, 235;
+  --secondary-active: 231, 233, 235;
+  --secondary-text: 0, 0, 0;
+  --fg: 0, 0, 0;
+  --fg-secondary: 0, 0, 0;
+  --fg-tertiary: 0, 0, 0;
+  --bg: 255, 255, 255;
+  --bg-secondary: 231, 233, 235;
+  --bg-tertiary: 231, 233, 235;
+
+  --tooltip: 0, 0, 0;
+  --tooltip-fg: 255, 255, 255;
+  --link: 18, 109, 248;
+  --input: 229, 231, 235;
+  --input-focus: 255, 255, 255;
+  --border: 216, 216, 216;
+
+  --warning: 253, 182, 34;
+  --warning-hover: 254, 207, 112;
+  --warning-active: 251, 170, 2;
+  --success: 34, 197, 94;
+  --success-hover: 31, 180, 87;
+  --success-active: 29, 165, 80;
+  --danger: 227, 43, 61;
+  --danger-hover: 213, 28, 46;
+  --danger-active: 189, 26, 41;
+}

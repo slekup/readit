@@ -26,7 +26,12 @@ tauri-build = { version = "1.5.3", features = [] }
 serde_json = "1.0"
 serde = { version = "1.0", features = ["derive"] }
 tauri = { version = "1.7.0", features = [] }
-reqwest = { version = "0.12.5", features = ["json"] }
+reqwest = { version = "0.12.5", default-features = false, features = [
+  "json",
+  "gzip",
+  "brotli",
+  "rustls-tls",
+] }
 thiserror = "1.0.63"
 
 [features]

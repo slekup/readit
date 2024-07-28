@@ -1,6 +1,9 @@
-use serde::{Deserialize, Serialize};
+use std::time::Instant;
 
-use crate::AppError;
+use serde::{Deserialize, Serialize};
+use tauri::State;
+
+use crate::{app::App, AppError};
 
 #[derive(Serialize, Deserialize, Copy, Clone)]
 #[serde(untagged)]
@@ -13,12 +16,12 @@ enum Edited {
 struct ResMediaEmbed {
     provider_name: String,
     provider_url: String,
-    title: String,
-    embed_type: String,
-    height: i32,
-    width: i32,
-    author_name: String,
-    author_url: String,
+    title: Option<String>,
+    embed_type: Option<String>,
+    height: Option<i32>,
+    width: Option<i32>,
+    author_name: Option<String>,
+    author_url: Option<String>,
     thumbnail_url: String,
     thumbnail_height: i32,
     thumbnail_width: i32,
@@ -65,12 +68,12 @@ struct Res {
 struct MediaEmbed {
     provider_name: String,
     provider_url: String,
-    title: String,
-    embed_type: String,
-    height: i32,
-    width: i32,
-    author_name: String,
-    author_url: String,
+    title: Option<String>,
+    embed_type: Option<String>,
+    height: Option<i32>,
+    width: Option<i32>,
+    author_name: Option<String>,
+    author_url: Option<String>,
     thumbnail_url: String,
     thumbnail_height: i32,
     thumbnail_width: i32,
@@ -105,18 +108,27 @@ pub struct Data {
 }
 
 #[tauri::command]
-pub async fn home() -> Result<Data, AppError> {
-    let client = reqwest::Client::new();
-    let res = client
-        .get("https://reddit.com/.json")
+pub async fn home(limit: i32, app: State<'_, App>) -> Result<Data, AppError> {
+    let req_start = Instant::now();
+
+    let res = app
+        .client
+        .get("https://www.reddit.com/.json")
+        // .query(&[("limit", limit.to_string())])
         .header(
             "User-Agent",
             "Mozilla/5.0 (Windows NT 10.0; rv:128.0) Gecko/20100101 Firefox/128.0",
         )
         .send()
-        .await?
-        .json::<Res>()
         .await?;
+
+    println!("Request took {:?}", req_start.elapsed());
+
+    let json_start = Instant::now();
+
+    let res = res.json::<Res>().await?;
+
+    println!("Parsing JSON took {:?}", json_start.elapsed());
 
     Ok(Data {
         title: res.data.children[0].data.title.clone(),
